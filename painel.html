@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Treinamento </title>
+  <style>
+    body {
+      background-color: rgba(240, 82, 25, 0.925);
+      color: white;
+      font: normal 14pt Arial;
+      Text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  Digite o número com DDD:
+  <P><input type="number" id="num">
+  <p><input type="button" value="Ligar" onclick="ligar()">
+
+</body>
+<script>
+    function ligar() {
+    var numero = document.getElementById("num").value
+      var data = JSON.stringify({
+      "caller": "36446001",
+      "called": numero
+    });
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+      if (this.readyState === 4) {
+        console.log(this.responseText);
+      }
+    });
+
+    xhr.open("POST", "https://api.nvoip.com.br/v2/calls/");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzM4Nzg3ODksInVzZXJfbmFtZSI6IjM2NDQ2MDAxIiwiYXV0aG9yaXRpZXMiOlsiQ0xJRU5URSJdLCJqdGkiOiIwMDU4NjcyZi0yNzVhLTQwNmQtOTJkMi1mYTc1M2Q4NjQ4MmUiLCJjbGllbnRfaWQiOiJOdm9pcEFwaVYyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.B9JjW7KKM8K-d40wbxRkCM8DtXXD_iRU746SBk4CAQ0");
+
+    xhr.send(data);
+  }
+
+</script>
+
+</html>
